@@ -1,15 +1,11 @@
 #include <iostream>
 #include <fstream>
-#include <iostream>
-#include <vector>
 #include <algorithm>
 #include <queue>
-#include <set>
-#include <map>
 #include <string>
 #include<bits/stdc++.h>
 using namespace std;
-#define INF 0x3f3f3f3f
+
 int back_to_start_distance[100];
 string back_to_start_city[100];
 int index_of_back_to_start;
