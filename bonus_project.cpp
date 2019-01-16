@@ -139,20 +139,22 @@ int main(int argc, const char *argv[]) {
     std::string studentID = argv[1];
     std::string fileinput = file + studentID + "/tp.data";
     std::string fileoutput = file + studentID + "/ans1.txt";
+    std::string fileoutput_2 = file + studentID + "/ans2.txt";
     std::ifstream input;
     std::ofstream output;
+    std::ofstream output_2;
     input.open(fileinput.c_str());
     if(input)
     {
         int nodes, edges, quota, s_time;
-        cin >> nodes >> edges >> quota >> s_time;
+        input >> nodes >> edges >> quota >> s_time;
         city *a = new city[nodes];
         city city1, city2;
         int distance, k, m;
         Map m1(nodes, quota, s_time);
         for(int i = 0; i < nodes; ++i)
         {
-            cin >> a[i].name >> a[i].h_credit >> a[i].open_t >> a[i].close_t;
+            input >> a[i].name >> a[i].h_credit >> a[i].open_t >> a[i].close_t;
             a[i].num = i;
             for(int j = 0; j < nodes; ++j)
             {
@@ -166,7 +168,7 @@ int main(int argc, const char *argv[]) {
         }
         for(int j = 0; j < edges; ++j)
         {
-            cin >> city1.name >> city2.name >> distance;
+            input >> city1.name >> city2.name >> distance;
             for(k = 0; k < nodes; ++k)
             {
                 if(a[k].name == city1.name) break;
@@ -188,6 +190,13 @@ int main(int argc, const char *argv[]) {
                 }
             }
         }
+
+        output_2.open(fileoutput_2.c_str());
+        if(s_time >= a[0].open_t && s_time <= a[0].close_t) output_2 << a[0].h_credit << " 0" << endl;
+        else output_2 << "0 0" << endl;
+        output_2 << a[0].name << " " << s_time << " " << s_time << endl;
+        output_2.close();
+
         m1.pluse_start_credit(a);
         m1.make_move(0, a);
         output.open(fileoutput.c_str());
@@ -199,7 +208,7 @@ int main(int argc, const char *argv[]) {
             name.pop();T.pop();
         }
         output.close();
-        delete a;
+        delete []a;
         input.close();
     }
     else std::cerr << "failed to open \"tp.data\"" << std::endl;
